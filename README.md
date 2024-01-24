@@ -84,8 +84,11 @@ House Price Prediction 경진대회는 주어진 데이터를 활용하여 서�
 
 ### Meeting Log
 
-- _Insert your meeting log link like Notion or Google Docs_
+- [1주차](https://www.notion.so/1-1-7-1-12-056b6469b2d944599317d98271a6e433)
+- [2주차](https://www.notion.so/2-1-15-1-19-de33ab19686b4e8ba5b95c393801f416)
+- [3주차](https://www.notion.so/3-1-22-1-25-5e69f667552940728f8f73281a5dd93e)
 
 ### Reference
 
-- _Insert related reference_
+- [2023년 4분기 주택 매매 가격 추세 기사](https://www.m-i.kr/news/articleView.html?idxno=1084731)
+- [2023년 전국 주택 매매 가격 추세 기사](https://www.segye.com/newsView/20240115513617?OutUrl=naver)
