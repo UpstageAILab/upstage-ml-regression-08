@@ -195,12 +195,22 @@ df.loc[:,'is_gangnam'] = df['시군구'].apply(gangnam_parser)
 ## 6. Retrospective
 
 ### Pros
+
 #### 김태한
--  각자 EDA와 아이디어를 공유하여 시야의 폭을 넓힐 수 있었다.   
+-  각자 EDA와 아이디어를 공유하여 시야의 폭을 넓힐 수 있었다.
+
+#### 이현진
+1. 데이터 EDA를 하면서 insight를 얻을 수 있었고, 경험을 얻을 수 있었다.
+2. 다양한 데이터 전처리를 진행해볼 수 있었다.
 
 ### Cons
+
 #### 김태한
 - Validation 데이터를 활용한 RMSE, 특히 K-Fold를 적용해도 Public Score와 같은 방향으로 움직이지 않아서 어떻게 스코어를 올려야할지 감을 잡기 어려웠다. 특히 여러 기사를 찾아봤을 때 2023년 하반기에도 아파트 가격이 1% 내외로 하락했기에 더욱 어려웠다. 유의미한 피쳐의 확인이 어려웠다. 현재 진행중인 대회 게시판 뿐이 아니라 외부자료나 유사한 Kaggle 등을 더 찾아봤으면 하는 아쉬움이 있다.
+
+#### 이현진
+1. local evaluation과 public score 간의 차이가 너무 컸고, public score와 local score 간의 관계가 확실하게 나타나지 않아서 점수를 향상시키는 것에 어려움이 있었다.
+2. 시간이 짧아 급하게 대회를 마무리지어진 느낌이 들어 아쉬움이 있다.
 
 ## etc
 
@@ -214,3 +224,4 @@ df.loc[:,'is_gangnam'] = df['시군구'].apply(gangnam_parser)
 
 - [2023년 4분기 주택 매매 가격 추세 기사](https://www.m-i.kr/news/articleView.html?idxno=1084731)
 - [2023년 전국 주택 매매 가격 추세 기사](https://www.segye.com/newsView/20240115513617?OutUrl=naver)
+- <a href = 'https://www.bok.or.kr/portal/singl/baseRate/list.do?dataSeCd=01&menuNo=200643'>한국은행 기준금리 추이</a>
