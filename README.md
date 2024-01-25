@@ -31,17 +31,6 @@ House Price Prediction 경진대회는 주어진 데이터를 활용하여 서�
 
 ### Directory
 
-![image](https://github.com/UpstageAILab/upstage-ml-regression-08/assets/119946138/e1cd5c4a-d099-4ef3-85c1-df6d088107bc)
-
-1,118,822 X 52 의 데이터<br>
-아파트의 정보 변수 + 거래 시점에 대한 정보 + 거래금액(target)<br>
-학습 데이터의 기간은 2007-01-01 \~ 2023-06-30
-
-![image](https://github.com/UpstageAILab/upstage-ml-regression-08/assets/119946138/6fc65b2d-e528-4f25-8001-f0b9aee003cf)
-<br>각 데이터에 대한 결측 비율 그래프
-
-
-
 |- Project  
 |---- | code | - model  
 |---- | data | - train.csv  
@@ -53,6 +42,7 @@ House Price Prediction 경진대회는 주어진 데이터를 활용하여 서�
 
 ### Dataset overview
 
+![image](https://github.com/UpstageAILab/upstage-ml-regression-08/assets/119946138/e1cd5c4a-d099-4ef3-85c1-df6d088107bc)<br>
 - 학습 데이터는 아래와 같이 1,118,822개이며, 예측해야 할 거래금액(target)을 포함한 52개의 아파트의 정보에 대한 변수와 거래시점에 대한 변수.
 - 주요 데이터는 .csv 형태로 제공되며, 서울시 아파트의 각 시점에서의 거래금액(만원)을 예측이 목표
 - 학습 데이터의 기간은 2007년 1월 1일부터 2023년 6월 30일
@@ -67,6 +57,9 @@ House Price Prediction 경진대회는 주어진 데이터를 활용하여 서�
   'k-팩스번호', 'k-세대타입(분양형태)', 'k-관리방식', 'k-복도유형', 'k-난방방식', 'k-건설사(시공사)', 'k-시행사',
   'k-사용검사일-사용승인일', 'k-수정일자', '고용보험관리번호', '경비비관리형태', '세대전기계약방법', '청소비관리형태',
   '기타/의무/임대/임의=1/2/3/4', '단지승인일', '사용허가여부', '관리비 업로드', '단지신청일'
+
+![image](https://github.com/UpstageAILab/upstage-ml-regression-08/assets/119946138/6fc65b2d-e528-4f25-8001-f0b9aee003cf)
+<br>각 데이터에 대한 결측 비율 그래프
 
 ### EDA
 
