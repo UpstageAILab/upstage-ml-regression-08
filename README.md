@@ -71,9 +71,9 @@ House Price Prediction 경진대회는 주어진 데이터를 활용하여 서�
 
 #### 이현진
 1. 연속형 변수에 대한 변수 간 상관관계 확인<br>
-![image]()
+![image](./image/heat_corr.png)
 2. 'target'과 상관관계가 높은 변수 확인<br>
-![image]()
+![image](./image/scatter.png)
 
 ### Feature engineering
 
@@ -123,8 +123,9 @@ for i in range(len(df)):
             break
 df.loc[:,'interest_rate'] = df['interest_rate'].apply(lambda x : 3.5 if x == -1 else x)
 ```
+
 2. 역세권 여부 feature 추가<br>
-'''python
+```python
 with open('../data/subway_feature.csv') as f:
     subway_df = pd.read_csv(f)
 
@@ -150,9 +151,10 @@ def subway_distance(x, y):
 
 tmp = train.progress_apply(lambda row : subway_distance(row['x'], row['y']), axis = 1)
 df['is_subway'] = tmp
-'''
+```
+
 3. 강남여부 feature 추가<br>
-'''python
+```python
 def gangnam_parser(x):
     gu_li = ['강서구', '영등포구', '동작구', '서초구', '강남구', '송파구', '강동구']
     if x.split(' ')[1] in gu_li:
@@ -161,7 +163,7 @@ def gangnam_parser(x):
         return 0
 
 df.loc[:,'is_gangnam'] = df['시군구'].apply(gangnam_parser)
-'''
+```
 
 ## 4. Modeling
 
