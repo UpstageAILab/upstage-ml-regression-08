@@ -1,4 +1,4 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/g6ZC_OOE)
+![image](https://github.com/UpstageAILab/upstage-ml-regression-08/assets/46292718/36f66359-0658-44dd-8d96-47ea3cc3285f)[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/g6ZC_OOE)
 # 업스테이지 서울 아파트 가격 예측 8조
 
 ## Team 8
@@ -79,6 +79,14 @@
 ![gu_boxplot](./image/관리방식_복도유형_세대타입_경비비관리형태.jpg)<br>
 관리방식, 복도유형, 세대타입, 경비비관리형태 등의 feature는 target 값에 큰 영향을 미치지 않는 것처럼 보임.
 ![gu_boxplot](./image/층_전용면적.jpg)
+
+#### 권혁찬
+1. 전체기간 거래일에 따른 구별 target 변화 추이 Line 그래프<br>
+![image](./image/gangnam_line.png)
+2. 전체기간 거래일에 따른 구별 target Histogram 그래프<br>
+![image](./image/gangnam_hist.png)
+3. 전체기간 거래일에 따른 구별 target Line 그래프 비교(기준:강남구)<br>
+![image](./image/gangnam_compare.png)
 
 ### Feature engineering
 
@@ -218,6 +226,95 @@ concat_select['청소비관리형태통합'] = concat_select['청소비관리형
 ```
 
 
+#### 권혁찬
+1. 계약년월, 계약일을 활용한 Date 피처 생성 및 시계열 정렬<br>
+```python
+TEST_INDEXER = None
+
+# train data를 시계열로 정렬
+df_train['date'] = df_train['계약년월'].astype('str')+df_train['계약일'].astype('str')
+df_train['date'] = pd.to_datetime(df_train['date'], format='%Y%m%d')
+df_train = df_train.sort_values(by='date')
+df_train = df_train.set_index('date')
+print(df_train.index[0],'~',df_train.index[-1],' / ',df_train.shape)
+
+# test data를 시계열로 정렬
+df_test['test_indexer'] = [i for i in range(df_test.shape[0])]
+df_test['date'] = df_test['계약년월'].astype('str')+df_test['계약일'].astype('str')
+df_test['date'] = pd.to_datetime(df_test['date'], format='%Y%m%d')
+df_test = df_test.sort_values(by='date')
+df_test = df_test.set_index('date')
+TEST_INDEXER = df_test['test_indexer'].copy()
+del df_test['test_indexer']
+print(df_test.index[0],'~',df_test.index[-1],' / ',df_test.shape)
+```
+
+2. 전용면적의 구간별 피처 생성<br>
+```python
+    df = df.assign(**{'전용면적(㎡)': df['전용면적(㎡)'].round().astype(int)}) # train 272 / test 206
+    df = df.assign(**{'전용면적div3': df['전용면적(㎡)'] // 3}) # train 96 / test 80
+    df = df.assign(**{'전용면적div5': df['전용면적(㎡)'] // 5}) # train 60 / test 53
+    df = df.assign(**{'전용면적div10': df['전용면적(㎡)'] // 10}) # train 33 / test 28
+    df = df.assign(**{'전용면적div20': df['전용면적(㎡)'] // 20}) # train 19 / test 15
+    df = df.assign(**{'전용면적div30': df['전용면적(㎡)'] // 30}) # train 13 / test 11
+```
+
+3. 전용면적을 5개의 카테고리별로 나누어 월별 매매지수 'index_region'피처 생성<br>
+```python
+def add_index_region_feature(df):
+    df_scale = pd.read_csv('../apartment_scale_index.csv', encoding='cp949')
+    df_scale
+    def give_grade_area_str(x):
+        if x == '초소형(40㎡ 이하)': return '0'
+        elif x == '소형(40㎡초과 60㎡이하)': return '1'
+        elif x == '중소형(60㎡초과 85㎡이하)': return '2'
+        elif x == '중대형(85㎡초과 135㎡이하)': return '3'
+        elif x == '대형(135㎡ 초과)': return '4'
+    def give_grade_area_int(x):
+        if x <= 40: return '0'
+        elif x <=60: return '1'
+        elif x <=85: return '2'
+        elif x <=135: return '3'
+        else: return '4'
+    df_scale['전용면적cat'] = df_scale['주거면적'].apply(lambda x: give_grade_area_str(x))
+    df['전용면적cat'] = df['전용면적(㎡)'].round().apply(lambda x: give_grade_area_int(x))
+    merged_df = pd.merge(df, df_scale[['전용면적cat', '계약년월', 'index_region']], on=['전용면적cat', '계약년월'], how='left')
+    # merged_df = merged_df.drop(['전용면적cat'], axis=1)
+    return merged_df
+```
+
+4. 전용면적을 5개의 카테고리별로 나누어 월별 매매지수 'index_region'피처 생성<br>
+```python
+def add_index_region_feature(df):
+    df_scale = pd.read_csv('../apartment_scale_index.csv', encoding='cp949')
+    df_scale
+    def give_grade_area_str(x):
+        if x == '초소형(40㎡ 이하)': return '0'
+        elif x == '소형(40㎡초과 60㎡이하)': return '1'
+        elif x == '중소형(60㎡초과 85㎡이하)': return '2'
+        elif x == '중대형(85㎡초과 135㎡이하)': return '3'
+        elif x == '대형(135㎡ 초과)': return '4'
+    def give_grade_area_int(x):
+        if x <= 40: return '0'
+        elif x <=60: return '1'
+        elif x <=85: return '2'
+        elif x <=135: return '3'
+        else: return '4'
+    df_scale['전용면적cat'] = df_scale['주거면적'].apply(lambda x: give_grade_area_str(x))
+    df['전용면적cat'] = df['전용면적(㎡)'].round().apply(lambda x: give_grade_area_int(x))
+    merged_df = pd.merge(df, df_scale[['전용면적cat', '계약년월', 'index_region']], on=['전용면적cat', '계약년월'], how='left')
+    # merged_df = merged_df.drop(['전용면적cat'], axis=1)
+    return merged_df
+```
+
+5. 아파트 매매 가격 / 전용면적 별 매매지수 => 'ratio' 피처 생성<br>
+```python
+def add_ratio_feature(df):
+    df['ratio'] = df['target'] / df['index_region']
+    df['ratio'] = df['ratio'].round().astype(int)
+    return df
+```
+
 ## 4. Modeling
 
 ### Model description
@@ -260,6 +357,11 @@ concat_select['청소비관리형태통합'] = concat_select['청소비관리형
 1. 데이터에 결측치도 많고 시계열로 해석 가능한 데이터까지 들어 있어서 여러 가지 모델 실험을 할 수 있던 데이터였던 것 같다.
 2. 팀원분들과 이야기를 나누며 데이터를 시각화한 것을 관찰하고 도메인 관련 지식들을 공유해 주셔서 많이 알아가는 기회가 되었다
 
+#### 권혁찬
+1. 매일 매일 팀원과 함께 같은 문제로 토론하면서 문제의 뱡항성을 잡고 끈기있게 파고드는 경험을 하는 것은 좋은 경험이었다.
+2. 전혀 모르는 데이터를 다뤄보면서 새로운 데이터에 대한 적응력을 키울 수 있었다.
+
+
 ### Cons
 
 #### 김태한
@@ -272,6 +374,11 @@ concat_select['청소비관리형태통합'] = concat_select['청소비관리형
 #### 김소현
 1. 도메인 지식이 부족해서 데이터를 해석하는 데에 시간이 오래 걸렸다.
 2. 생각보다 public score에서 내가 만든 모델들의 개선을 확인할 수 없어서 방향을 잡기가 어려웠다.
+
+#### 권혁찬
+1. 처음 데이터를 살펴봤을 때 컬럼이 상당히 많아서 모델링에 사용할 수 있는 데이터가 많다고 생각했는데 막상 결측치를 확인해보니 대다수의 데이터가 상당한 결측치를 포함하고 있어서 모델링에 사용하기 어려운 상태였다.
+2. 모델링 함에 있어서 피처를 추가하고 하이퍼파라미터 튜닝을 할수록 스코어가 더 안나오는 느낌을 받았다. 아무래도 더 맞지 않는 쪽으로 모델 더욱 피팅이 되고 있는 것 같았다.
+
 
 ## etc
 
