@@ -1,12 +1,12 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/g6ZC_OOE)
-# Title (Please modify the title)
+# 업스테이지 서울 아파트 가격 예측 8조
 
-## Team
+## Team 8
 
 | ![김소현](https://avatars.githubusercontent.com/u/156163982?v=4) | ![권혁찬](https://avatars.githubusercontent.com/u/156163982?v=4) | ![김태한](https://avatars.githubusercontent.com/u/156163982?v=4) | ![문정의](https://avatars.githubusercontent.com/u/156163982?v=4) | ![이현진](https://avatars.githubusercontent.com/u/156163982?v=4) |
 | :--------------------------------------------------------------: | :--------------------------------------------------------------: | :--------------------------------------------------------------: | :--------------------------------------------------------------: | :--------------------------------------------------------------: |
 |            [김소현](https://github.com/UpstageAILab)             |            [권혁찬](https://github.com/UpstageAILab)             |            [김태한](https://github.com/UpstageAILab)             |            [문정의](https://github.com/UpstageAILab)             |            [이현진](https://github.com/UpstageAILab)             |
-|                            팀장, 담당 역할                             |                            담당 역할                             |                            담당 역할                             |                            담당 역할                             |                            담당 역할                             |
+|                            팀장, EDA, 피쳐 엔지니어링, 모델링                             |                            EDA, 피쳐 엔지니어링, 모델링                             |                            EDA, 피쳐 엔지니어링, 모델링                             |                            EDA, 피쳐 엔지니어링, 모델링                             |                            EDA, 피쳐 엔지니어링, 모델링                             |
 
 ## 1. Competiton Info
 
@@ -54,7 +54,10 @@ House Price Prediction 경진대회는 주어진 데이터를 활용하여 서�
 
 ### EDA
 
-- _Describe your EDA process and step-by-step conclusion_
+#### 김태한
+- 구별 아파트 가격의 Boxplot
+![gu_boxplot]("./image/구별 가격 박스플랏.png")
+- 
 
 ### Feature engineering
 
