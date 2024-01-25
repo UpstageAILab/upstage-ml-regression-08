@@ -84,7 +84,7 @@
 1. 전체기간 거래일에 따른 구별 target 변화 추이 Line 그래프<br>
 ![image](./image/gangnam_line.png)
 2. 전체기간 거래일에 따른 구별 target Histogram 그래프<br>
-![image](./image/gangnam_hist.png)
+![image](./image/gamnam_hist.png)
 3. 전체기간 거래일에 따른 구별 target Line 그래프 비교(기준:강남구)<br>
 ![image](./image/gangnam_compare.png)
 
