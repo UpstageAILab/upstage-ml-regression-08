@@ -67,7 +67,13 @@ House Price Prediction 경진대회는 주어진 데이터를 활용하여 서�
 - 구별 아파트 가격의 Boxplot
 ![gu_boxplot](./image/구별_가격_박스플랏.png)  
 - 구별 연도에 따른 아파트 가격 추이 Plot
-![gu_boxplot](./image/구별_연도별_아파트가격추이.png)  
+![gu_boxplot](./image/구별_연도별_아파트가격추이.png)
+
+#### 이현진
+1. 연속형 변수에 대한 변수 간 상관관계 확인<br>
+![image]()
+2. 'target'과 상관관계가 높은 변수 확인<br>
+![image]()
 
 ### Feature engineering
 
@@ -93,8 +99,69 @@ def class_area(data):
 ```
 train_x['price'] = train_x.groupby(['area_class'])['target'].transform('mean')
 ```
+#### 이현진
+1. 한국은행 기준금리 feature 추가<br>
+```python
+with open('../data/interest_rate.csv') as f:
+    interest = pd.read_csv(f)
+t = interest
+t = t.astype('str')
+interest.loc[:,'datetime'] = t['year'] + t['month'].apply(lambda x: '0'+x if len(x) == 1 else x) + t['date'].apply(lambda x: '0'+x if len(x) == 1 else x)
+interest.sort_values(by = ['year','month','date'], ascending=True, inplace = True)
+interest.reset_index(inplace=True)
+interest.drop(columns = 'index', inplace = True)
+import datetime
+df['interest_rate'] = [-1] * len(df)
+for i in range(len(df)):
+    contract_date = str(df.loc[i,'계약년']) + '-' + str(df.loc[i, '계약월'])+ '-'+ str(df.loc[i,'계약일'])
+    contract_date = datetime.datetime.strptime(contract_date, '%Y-%m-%d')
+    for j in range(len(interest)-1):
+        compare_date1 = datetime.datetime.strptime(interest.loc[j,'datetime'], '%Y%m%d')
+        compare_date2 = datetime.datetime.strptime(interest.loc[j+1,'datetime'], '%Y%m%d')
+        if (compare_date1<=contract_date) and (contract_date < compare_date2):
+            df.loc[i, 'interest_rate'] =  interest.loc[j, 'rate']
+            break
+df.loc[:,'interest_rate'] = df['interest_rate'].apply(lambda x : 3.5 if x == -1 else x)
+```
+2. 역세권 여부 feature 추가<br>
+'''python
+with open('../data/subway_feature.csv') as f:
+    subway_df = pd.read_csv(f)
 
-- _Describe feature engineering process_
+def subway_distance(x, y):
+    y_building = y
+    x_building = x
+    for i in range(len(subway_df)):
+        x_subway = subway_df.loc[i, '경도']
+        y_subway = subway_df.loc[i, '위도']
+
+        x_distance = abs(x_building - x_subway)
+        y_distance = abs(y_building - y_subway)
+
+        #위도 경도 변환
+        x_distance = 88000 * x_distance
+        y_distance = 110000 * y_distance
+
+        distance = np.sqrt(x_distance ** 2 + y_distance ** 2)
+        if distance <= 500:
+            return 1
+
+    return 0
+
+tmp = train.progress_apply(lambda row : subway_distance(row['x'], row['y']), axis = 1)
+df['is_subway'] = tmp
+'''
+3. 강남여부 feature 추가<br>
+'''python
+def gangnam_parser(x):
+    gu_li = ['강서구', '영등포구', '동작구', '서초구', '강남구', '송파구', '강동구']
+    if x.split(' ')[1] in gu_li:
+        return 1
+    else:
+        return 0
+
+df.loc[:,'is_gangnam'] = df['시군구'].apply(gangnam_parser)
+'''
 
 ## 4. Modeling
 
