@@ -56,7 +56,7 @@ House Price Prediction 경진대회는 주어진 데이터를 활용하여 서�
 
 #### 김태한
 - 구별 아파트 가격의 Boxplot
-![gu_boxplot](./image/구별 가격 박스플랏.png)
+![gu_boxplot](./image/구별_가격_박스플랏.png)  
 - 
 
 ### Feature engineering
