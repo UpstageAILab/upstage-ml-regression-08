@@ -12,8 +12,7 @@
 
 ### Overview
 
-- _Write competition information_
-House Price Prediction 경진대회는 주어진 데이터를 활용하여 서울의 아파트 실거래가를 효과적으로 예측하는 모델을 개발하는 대회입니다. 
+- House Price Prediction 경진대회는 주어진 데이터를 활용하여 서울의 아파트 실거래가를 효과적으로 예측하는 모델을 개발하는 대회입니다. 
 
 저희는 이러한 목적 하에서 다양한 부동산 관련 의사결정을 돕고자 하는 부동산 실거래가를 예측하는 모델을 개발하는 것입니다. 특히, 가장 중요한 서울시로 한정해서 서울시의 아파트 가격을 예측하려고 합니다.
 
@@ -74,6 +73,12 @@ House Price Prediction 경진대회는 주어진 데이터를 활용하여 서�
 ![image](./image/heat_corr.png)
 2. 'target'과 상관관계가 높은 변수 확인<br>
 ![image](./image/scatter.png)
+
+#### 김소현
+1. 각 feature들에 따라 target 값에 연관이 있는지 확인<br>
+![gu_boxplot](./image/관리방식_복도유형_세대타입_경비비관리형태.jpg)<br>
+관리방식, 복도유형, 세대타입, 경비비관리형태 등의 feature는 target 값에 큰 영향을 미치지 않는 것처럼 보임.
+![gu_boxplot](./image/층_전용면적.jpg)
 
 ### Feature engineering
 
@@ -165,9 +170,57 @@ def gangnam_parser(x):
 df.loc[:,'is_gangnam'] = df['시군구'].apply(gangnam_parser)
 ```
 
+#### 김소현
+1. 좌표X와 좌표Y를 카카오맵API를 통해 보충<br>
+```python
+dt_test_left_join = pd.merge(dt_test, add_na_df_test_final, left_on=['시군구', '번지', '아파트명'], right_on=['시군구', '번지', '아파트명'], how='left')
+
+def OverWrite(pos1, pos2) :
+    if pd.isna(pos2) == True :
+        return pos1
+    else :
+        return pos2
+
+dt_test_left_join['좌표X'] = dt_test_left_join.apply(lambda x : OverWrite(x['좌표X_x'], x['좌표X_y']), axis=1)
+dt_test_left_join['좌표Y'] = dt_test_left_join.apply(lambda x : OverWrite(x['좌표Y_x'], x['좌표Y_y']), axis=1)
+```
+
+2. 고층여부 feature 추가<br>
+```python
+def is_high_floor(floor) :
+    if floor < 0 :
+        return -1
+    elif floor >= 0 and floor <= 25 :
+        return 0
+    elif floor > 25 and floor <= 33 :
+        return 1
+    elif floor > 33 and floor <= 49 :
+        return 2
+    elif floor > 49 and floor <= 67 :
+        return 3
+    else :
+        return 4
+
+concat_select['고층여부'] = concat_select['층'].apply(is_high_floor)
+```
+
+3. 청소비관리형태 그룹화
+```python
+def define_wash_fee(fee) :
+    if fee == '위탁+직영' :
+        return 2
+    elif fee == '위탁' or fee == '직영' :
+        return 1
+    else :
+        return 0
+
+concat_select['청소비관리형태통합'] = concat_select['청소비관리형태'].apply(define_wash_fee)
+```
+
+
 ## 4. Modeling
 
-### Model descrition
+### Model description
 
 - XGBoost
   : 기존 Gradient Boosting Tree 모델에서 HW적인 최적화를 수행한 모델.
@@ -185,8 +238,8 @@ df.loc[:,'is_gangnam'] = df['시군구'].apply(gangnam_parser)
 
 ### Leader Board
 
-- _Insert Leader Board Capture_
-- _Write rank and score_
+- ![image](https://github.com/UpstageAILab/upstage-ml-regression-08/assets/79961865/f99fb808-ad2a-454f-824e-911dc01e8291)
+- 7th, Public Score 89077.1826
 
 ### Presentation
 
@@ -203,6 +256,10 @@ df.loc[:,'is_gangnam'] = df['시군구'].apply(gangnam_parser)
 1. 데이터 EDA를 하면서 insight를 얻을 수 있었고, 경험을 얻을 수 있었다.
 2. 다양한 데이터 전처리를 진행해볼 수 있었다.
 
+#### 김소현
+1. 데이터에 결측치도 많고 시계열로 해석 가능한 데이터까지 들어 있어서 여러 가지 모델 실험을 할 수 있던 데이터였던 것 같다.
+2. 팀원분들과 이야기를 나누며 데이터를 시각화한 것을 관찰하고 도메인 관련 지식들을 공유해 주셔서 많이 알아가는 기회가 되었다
+
 ### Cons
 
 #### 김태한
@@ -211,6 +268,10 @@ df.loc[:,'is_gangnam'] = df['시군구'].apply(gangnam_parser)
 #### 이현진
 1. local evaluation과 public score 간의 차이가 너무 컸고, public score와 local score 간의 관계가 확실하게 나타나지 않아서 점수를 향상시키는 것에 어려움이 있었다.
 2. 시간이 짧아 급하게 대회를 마무리지어진 느낌이 들어 아쉬움이 있다.
+
+#### 김소현
+1. 도메인 지식이 부족해서 데이터를 해석하는 데에 시간이 오래 걸렸다.
+2. 생각보다 public score에서 내가 만든 모델들의 개선을 확인할 수 없어서 방향을 잡기가 어려웠다.
 
 ## etc
 
