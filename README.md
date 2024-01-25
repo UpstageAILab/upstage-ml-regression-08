@@ -31,11 +31,13 @@ House Price Prediction 경진대회는 주어진 데이터를 활용하여 서�
 
 ### Directory
 
-이 부분은 수정 필요
-|- Project_Folder
-| | code | model
-| | data | train.csv
-| | data | test.csv
+이 부분은 수정 필요  
+대회의 데이터 -> 베이스라인 코드 페이지 참조
+
+|- Project_Folder  
+| | code | model  
+| | data | train.csv  
+| | data | test.csv  
 
 - _Insert your directory structure_
 
