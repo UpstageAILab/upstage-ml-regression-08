@@ -34,6 +34,7 @@ Project<br>
 .<br>
 ├── code<br>
 │   └── final.ipynb<br>
+│   └── baseline_code_v1_final_문정의<br>
 ├── docs/pdf<br>
 │   ├── (Template) [패스트캠퍼스] Upstage AI Lab 1기_그룹 스터디 .pptx<br>
 │   └── 아파트가격예측모델_8조_v1.pptx<br>
