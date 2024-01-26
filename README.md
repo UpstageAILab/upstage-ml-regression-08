@@ -33,7 +33,7 @@
 Project<br>
 .<br>
 ├── code<br>
-│   └── d<br>
+│   └── final.ipynb<br>
 ├── docs/pdf<br>
 │   ├── (Template) [패스트캠퍼스] Upstage AI Lab 1기_그룹 스터디 .pptx<br>
 │   └── 아파트가격예측모델_8조_v1.pptx<br>
