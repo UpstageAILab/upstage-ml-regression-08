@@ -30,12 +30,23 @@
 
 ### Directory
 
-|- Project  
-|---- | code | - model  
-|---- | data | - train.csv  
-|---- | data | - test.csv  
-
-- _Insert your directory structure_
+Project  
+.
+├── code
+│   └── d
+├── docs/pdf
+│   ├── (Template) [패스트캠퍼스] Upstage AI Lab 1기_그룹 스터디 .pptx
+│   └── 아파트가격예측모델_8조_v1.pptx
+├── image
+│   └── (images to write md file)
+├── src
+│   ├── bus_feature.csv
+│   ├── include_xy.csv
+│   ├── interest_rate.csv
+│   ├── subway_feature.csv
+│   ├── test.csv
+│   └── train.csv
+└── README.md
 
 ## 3. Data descrption
 
