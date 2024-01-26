@@ -30,23 +30,23 @@
 
 ### Directory
 
-Project  
-.
-├── code
-│   └── d
-├── docs/pdf
-│   ├── (Template) [패스트캠퍼스] Upstage AI Lab 1기_그룹 스터디 .pptx
-│   └── 아파트가격예측모델_8조_v1.pptx
-├── image
-│   └── (images to write md file)
-├── src
-│   ├── bus_feature.csv
-│   ├── include_xy.csv
-│   ├── interest_rate.csv
-│   ├── subway_feature.csv
-│   ├── test.csv
-│   └── train.csv
-└── README.md
+Project<br>
+.<br>
+├── code<br>
+│   └── d<br>
+├── docs/pdf<br>
+│   ├── (Template) [패스트캠퍼스] Upstage AI Lab 1기_그룹 스터디 .pptx<br>
+│   └── 아파트가격예측모델_8조_v1.pptx<br>
+├── image<br>
+│   └── (images to write md file)<br>
+├── src<br>
+│   ├── bus_feature.csv<br>
+│   ├── include_xy.csv<br>
+│   ├── interest_rate.csv<br>
+│   ├── subway_feature.csv<br>
+│   ├── test.csv<br>
+│   └── train.csv<br>
+└── README.md<br>
 
 ## 3. Data descrption
 
