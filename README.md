@@ -342,7 +342,7 @@ def add_ratio_feature(df):
 
 ### Leader Board
 
-![alt text](\image\leaderboard.png)
+![alt text1](./image/leaderboard.png)
 - 3th, Public Score : 12353.6405
 
 ### Presentation
