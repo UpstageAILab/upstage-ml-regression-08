@@ -34,10 +34,8 @@ Project<br>
 .<br>
 ├── code<br>
 │   └── final.ipynb<br>
-│   └── 아파트가격예측모델_8조_v2_final.pptx<br>
 ├── docs/pdf<br>
-│   ├── (Template) [패스트캠퍼스] Upstage AI Lab 1기_그룹 스터디 .pptx<br>
-│   └── 아파트가격예측모델_8조_v1.pptx<br>
+│   └── 아파트가격예측모델_8조.pptx<br>
 ├── image<br>
 │   └── (images to write md file)<br>
 ├── src<br>
@@ -339,20 +337,16 @@ def add_ratio_feature(df):
   : SW적인 알고리즘적 최적화가 잘 된 모델.
     LGBM은 Leaf-wise Growth 모델이다.
 
-### Modeling Process
-
-- _Write model train and test process with capture_
-
 ## 5. Result
 
 ### Leader Board
 
-- ![image](https://github.com/UpstageAILab/upstage-ml-regression-08/assets/79961865/f99fb808-ad2a-454f-824e-911dc01e8291)
-- 7th, Public Score 89077.1826
+- ![alt text](image\leaderboard.png)
+- 3th, Public Score : 12353.6405
 
 ### Presentation
 
-- _Insert your presentaion file(pdf) link_
+- 
 
 ## 6. Retrospective
 
