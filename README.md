@@ -36,6 +36,7 @@ Project<br>
 │   └── final.ipynb<br>
 ├── docs/pdf<br>
 │   └── 아파트가격예측모델_8조.pptx<br>
+│   └── 아파트가격예측모델_8조.pdf<br>
 ├── image<br>
 │   └── (images to write md file)<br>
 ├── src<br>
@@ -346,7 +347,9 @@ def add_ratio_feature(df):
 
 ### Presentation
 
-- 
+- <a href = "https://nbviewer.org/github/UpstageAILab/upstage-ml-regression-08/blob/main/docs/pdf/%EC%95%84%ED%8C%8C%ED%8A%B8%EA%B0%80%EA%B2%A9%EC%98%88%EC%B8%A1%EB%AA%A8%EB%8D%B8_8%EC%A1%B0.pdf">발표 자료 pdf</a>
+
+(주의, 대회 운영 측의 leaderboard indexing error 이전 발표 자료이므로 결과가 현재 페이지의 결과와 다를 수 있음)
 
 ## 6. Retrospective
 
